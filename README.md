@@ -1,3 +1,3 @@
 # Learning React Native
 
-Learning the basics of React Native.
+Learning the basics of React Native using Expo.

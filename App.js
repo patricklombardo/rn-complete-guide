@@ -5,7 +5,7 @@ import {
   View,
   TextInput,
   Button,
-  ScrollView,
+  FlatList,
 } from "react-native";
 
 export default () => {
@@ -18,7 +18,10 @@ export default () => {
 
   const addGoalHandler = () => {
     // React Native gives you the current value as the input of the setState callback function
-    setCourseGoals((currentGoals) => [...currentGoals, enteredGoal]);
+    setCourseGoals((currentGoals) => [
+      ...currentGoals,
+      { id: Math.random().toString(), value: enteredGoal },
+    ]);
   };
 
   return (
@@ -33,14 +36,15 @@ export default () => {
         />
         <Button title="ADD" onPress={addGoalHandler} />
       </View>
-      <ScrollView>
-        {/* Makes the subsection scrollable */}
-        {courseGoals.map((goal, idx) => (
-          <View key={idx} style={styles.listItem}>
-            <Text>{goal}</Text>
+      <FlatList
+        keyExtractor={(item, index) => item.id}
+        data={courseGoals}
+        renderItem={(itemData) => (
+          <View style={styles.listItem}>
+            <Text>{itemData.item.value}</Text>
           </View>
-        ))}
-      </ScrollView>
+        )}
+      />
     </View>
   );
 };
